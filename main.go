@@ -15,7 +15,8 @@ func main() {
 		log.Fatal(err.Error())
 	}
 
-	fmt.Println(corsCfg)
+	jsonStr, _ := json.MarshalIndent(corsCfg, "", "    ")
+	fmt.Println(string(jsonStr))
 }
 
 func loadCORSRulesFromFile(filename string) (*cors.Config, error) {

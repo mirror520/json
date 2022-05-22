@@ -91,9 +91,12 @@ func ConvertNaming(origin interface{}) interface{} {
 func SnakeCase(camel string) string {
 	var snake string
 
-	for _, c := range camel {
+	for i, c := range camel {
 		if c >= 'A' && c <= 'Z' {
-			snake += "_"
+			if i > 0 {
+				snake += "_"
+			}
+
 			snake += string(c + 32)
 			continue
 		}
@@ -101,5 +104,5 @@ func SnakeCase(camel string) string {
 		snake += string(c)
 	}
 
-	return snake[1:]
+	return snake
 }

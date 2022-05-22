@@ -9,13 +9,13 @@ type Config struct {
 	Version string
 
 	// Must be an array of valid CORS rules.
-	Rules []Rule
+	Rules []*Rule
 }
 
 func (c *Config) MarshalJSON() ([]byte, error) {
 	var tmp struct {
-		Version string `json:"version"`
-		Rules   []Rule `json:"rules"`
+		Version string  `json:"version"`
+		Rules   []*Rule `json:"rules"`
 	}
 
 	tmp.Version = c.Version
@@ -26,7 +26,7 @@ func (c *Config) MarshalJSON() ([]byte, error) {
 
 type Rule struct {
 	// Describes how to match this rule with a request URL.
-	Resource Resource
+	Resource *Resource
 
 	// Specifies the list of allowed origins for this resource.
 	AllowOrigins []string
@@ -43,11 +43,11 @@ type Rule struct {
 
 func (r *Rule) MarshalJSON() ([]byte, error) {
 	var tmp struct {
-		Resource         Resource `json:"resource"`
-		AllowOrigins     []string `json:"allow_origins"`
-		AllowMethods     []string `json:"allow_methods"`
-		AllowCredentials bool     `json:"allow_credentials"`
-		ExposeHeaders    []string `json:"expose_headers"`
+		Resource         *Resource `json:"resource"`
+		AllowOrigins     []string  `json:"allow_origins"`
+		AllowMethods     []string  `json:"allow_methods"`
+		AllowCredentials bool      `json:"allow_credentials"`
+		ExposeHeaders    []string  `json:"expose_headers"`
 	}
 
 	tmp.Resource = r.Resource
@@ -66,7 +66,7 @@ type Resource struct {
 	// When true, the CORS filter matches only requests with a path that starts with the value of path.
 	StartsWith bool
 
-	// When true, the CORS filter matches only requests with a path that is the exact value of path. The startsWith and exact properties are mutually exclusive.
+	// When true, the CORS filter matches only requests with a path that is the exact value of path.
 	Exact bool
 }
 

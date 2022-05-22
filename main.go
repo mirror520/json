@@ -1,26 +1,34 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+	"os"
 
-type CORSConfig struct {
-	Version string
-	Rules   []CORSRule
-}
-
-type CORSRule struct {
-	Resource        CORSResource
-	AllowOrigins    []string
-	AllowMethods    []string
-	AllowCredential bool
-	ExposeHeaders   []string
-}
-
-type CORSResource struct {
-	Path       string
-	StartsWith bool
-	Exact      bool
-}
+	"gitlab.com/mirror520/json/cors"
+)
 
 func main() {
-	fmt.Println("Hello world")
+	corsCfg, err := loadCORSRulesFromFile("./cors-rules.json")
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+
+	fmt.Println(corsCfg)
+}
+
+func loadCORSRulesFromFile(filename string) (*cors.Config, error) {
+	f, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+
+	var cfg cors.Config
+	err = json.NewDecoder(f).Decode(&cfg)
+	if err != nil {
+		return nil, err
+	}
+
+	return &cfg, nil
 }

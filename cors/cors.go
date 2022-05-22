@@ -7,7 +7,7 @@ type Config struct {
 	Version string `naming:"snake_case"`
 
 	// Must be an array of valid CORS rules.
-	// Rules []*Rule `naming:"snake_case"`
+	Rules []*Rule `naming:"snake_case"`
 }
 
 type Rule struct {

@@ -24,7 +24,32 @@ func ConvertNaming(origin interface{}) interface{} {
 	var structFields []reflect.StructField
 	for i := 0; i < rt.NumField(); i++ {
 		field := rt.Field(i)
-		values[field.Name] = rv.Field(i)
+		value := rv.Field(i)
+
+		switch value.Kind() {
+		case reflect.Slice:
+			rs := reflect.MakeSlice(value.Type(), value.Len(), value.Cap())
+			for j := 0; j < value.Len(); j++ {
+				index := value.Index(j)
+				if index.Kind() == reflect.Ptr {
+					index = index.Elem()
+				}
+
+				switch index.Kind() {
+				case reflect.Struct:
+					// iface := ConvertNaming(index.Interface())
+					// collection[j] = iface
+
+				case reflect.String:
+					rs.Index(j).Set(index)
+				}
+
+			}
+
+			// value = rs
+		}
+
+		values[field.Name] = value
 
 		naming, ok := field.Tag.Lookup("naming")
 		if ok {
@@ -38,7 +63,6 @@ func ConvertNaming(origin interface{}) interface{} {
 			case UPPER_CAMEL_CASE:
 				// TODO
 
-			default:
 			}
 		}
 

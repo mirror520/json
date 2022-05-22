@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "rules": [
+    {
+      "resource": {
+        "path": "/api/data/documents"
+      },
+      "allowOrigins": [ "http://this.example.com", "http://that.example.com" ],
+      "allowMethods": [ "GET" ],
+      "allowCredentials": true
+    }
+  ]
+}

@@ -12,7 +12,8 @@ const (
 	UPPER_CAMEL_CASE NamingStyle = "CamelCase"
 )
 
-func ConvertNaming(origin interface{}) interface{} {
+// WIP: 未完成，應先建立結構再塞值
+func Naming(origin interface{}) interface{} {
 	rt := reflect.TypeOf(origin)
 	rv := reflect.ValueOf(origin)
 	if rv.Kind() == reflect.Ptr {
@@ -37,7 +38,7 @@ func ConvertNaming(origin interface{}) interface{} {
 
 				switch index.Kind() {
 				case reflect.Struct:
-					// iface := ConvertNaming(index.Interface())
+					// iface := Naming(index.Interface())
 					// collection[j] = iface
 
 				case reflect.String:

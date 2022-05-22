@@ -16,7 +16,7 @@ func TestConvertNaming(t *testing.T) {
 	f, _ := os.Open("../cors-rules.json")
 	json.NewDecoder(f).Decode(&cfg)
 
-	newStruct := ConvertNaming(&cfg)
+	newStruct := Naming(&cfg)
 
 	jsonStr, _ := json.MarshalIndent(newStruct, "", "    ")
 	fmt.Println(string(jsonStr))

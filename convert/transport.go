@@ -11,6 +11,12 @@ import (
 
 func SnakeCaseHandler(endpoint endpoint.Endpoint) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != "POST" {
+			w.WriteHeader(http.StatusNotFound)
+			fmt.Fprintln(w, "404 page not found")
+			return
+		}
+
 		var request map[string]interface{}
 		err := json.NewDecoder(r.Body).Decode(&request)
 		if err != nil {

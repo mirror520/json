@@ -2,21 +2,12 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
 	"os"
 
 	"gitlab.com/mirror520/json/cors"
 )
 
 func main() {
-	corsCfg, err := loadCORSRulesFromFile("./cors-rules.json")
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-
-	jsonStr, _ := json.MarshalIndent(corsCfg, "", "    ")
-	fmt.Println(string(jsonStr))
 }
 
 func loadCORSRulesFromFile(filename string) (*cors.Config, error) {

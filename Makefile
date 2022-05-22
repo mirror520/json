@@ -5,5 +5,5 @@ run:
 .PHONY:run
 
 test:
-	go test ./...
+	go test -v ./...
 .PHONY:test
